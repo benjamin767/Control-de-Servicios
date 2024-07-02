@@ -8,7 +8,9 @@ module.exports = (sequelize) => {
         empresa: {
             type: DataTypes.STRING,
         },
-        descripcion,
+        descripcion: {
+            type: DataTypes.STRING,
+        },
         periodo: {
             type: DataTypes.STRING,
             defaultValue: 'Mensual',
