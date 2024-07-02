@@ -1,0 +1,14 @@
+POST http://localhost:5899/services
+Content-Type: application/json
+
+{
+    "rubro": "Telefonia",
+    "empresa": "Personal",
+    "descripcion": "Celular",
+    "periodo": "Mensual",
+    "metodo_de_pago": "Automatico",
+    "medio_de_pago": "Debito Automatico en Cuenta",
+    "vencimiento": "2021-07-06",
+    "moneda": "Pesos",
+    "importe": "200.000"
+}

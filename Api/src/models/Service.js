@@ -45,6 +45,13 @@ module.exports = (sequelize) => {
         importe: {
             type: DataTypes.STRING,
         },
+        estado: {
+            type: DataTypes.STRING,
+            defaultValue: 'Pendiente',
+            validate: {
+                isIn: [['Pendiente', 'Pagado']],
+            }
+        },
     }, {
         timestamps: false,
     });
