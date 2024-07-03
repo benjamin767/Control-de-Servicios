@@ -28,8 +28,23 @@ module.exports = {
         });
     },
     setServices: async ( id, rubro, empresa, descripcion, periodo, metodo_de_pago, medio_de_pago, vencimiento, moneda, importe, estado ) => {
-        if( !id ) throw new Error("Es necesario pasar el id de la factura para buscarlo");
+        if( !id ) throw new Error("Faltan datos importantes de referencia para buscar la factura");
         
-        return await Service;
+        const msg = await Service.update({
+            rubro, 
+            empresa, 
+            descripcion, 
+            periodo, 
+            metodo_de_pago, 
+            medio_de_pago, vencimiento, 
+            moneda, 
+            importe, 
+            estado
+        },{
+            where: { id }
+        });
+        if(msg[0] == 1) return "Factura Actualizada";
+        
+        throw new Error("No se pudo actualizar los datos de la factura");
     },
 };

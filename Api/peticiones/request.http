@@ -2,6 +2,7 @@ POST http://localhost:5899/services
 Content-Type: application/json
 
 {
+    "id": "1",
     "rubro": "Telefonia",
     "empresa": "Personal",
     "descripcion": "Celular",
@@ -10,5 +11,8 @@ Content-Type: application/json
     "medio_de_pago": "Debito Automatico en Cuenta",
     "vencimiento": "2021-07-06",
     "moneda": "Pesos",
-    "importe": "200.000"
+    "importe": "558.585",
+    "estado": "Pagado"
 }
+
+GET http://localhost:5899/services
