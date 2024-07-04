@@ -1,21 +1,24 @@
 const { Service } = require("../../../db");
 const { Op } = require("sequelize");
 const { parseISO, isValid, format } = require('date-fns');
+const { scheduleEmail, sendMail } = require("../../../nodemail");
 
 module.exports = {
     createService: async ( rubro, empresa, descripcion, periodo, metodo_de_pago, medio_de_pago, vencimiento, moneda, importe ) => {
-        const date = parseISO(vencimiento);
+        const date = new Date(vencimiento);
         //if( !isValid(date) ) throw new Error("La fecha es incorrecta");
+        await scheduleEmail(date, "it@frecom.com.ar, administracion@frecom.com.ar");
+        await sendMail("it@frecom.com.ar, administracion@frecom.com.ar");
         return await Service.create({
             rubro, 
             empresa, 
             descripcion, 
             periodo, 
             metodo_de_pago, 
-            medio_de_pago,
-            vencimiento,
-            moneda,
-            importe
+            medio_de_pago, 
+            vencimiento, 
+            moneda, 
+            importe 
         });
     },
     getServices: async (vencimiento, rubro, empresa) => {
@@ -44,7 +47,7 @@ module.exports = {
             where: { id }
         });
         if(msg[0] == 1) return "Factura Actualizada";
-        
+
         throw new Error("No se pudo actualizar los datos de la factura");
     },
 };

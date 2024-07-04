@@ -2,32 +2,44 @@ const nodemailer = require('nodemailer');
 const cron = require('node-cron');
 const { scheduleJob } = require('node-schedule');
 require('dotenv').config();
-const { EMAIL_USER, EMAIL_PASS } = process.env;
+const { google } = require('googleapis');
+const { REDIRECT_URI, ACESS_TOKEN, REFRESH_TOKEN, CLIENT_ID, CLIENT_SECRET, EMAIL_USER, EMAIL_PASS } = process.env;
+
+const oAuth2Client = new google.auth.OAuth2(
+    CLIENT_ID,
+    CLIENT_SECRET,
+    REDIRECT_URI
+);
 
 const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
     secure: true,
     auth: {
+        type: 'OAuth2',
         user: EMAIL_PASS,
         pass: EMAIL_USER,
+        clientId: CLIENT_ID,
+        clientSecret: CLIENT_SECRET,
+        refreshToken: REFRESH_TOKEN,
+        accessToken: ACESS_TOKEN
     }
 });
 
 const mailOptions = {
-    from: process.env.EMAIL_USER,
+    from: EMAIL_USER,
     to: '',
     subject: 'Scheduled Email',
     text: 'This is an automatically scheduled email.'
 };
 
-function sendMail(to) {
+async function sendMail(to) {
     mailOptions.to = to;
-    transporter.sendMail(mailOptions, (error, info) => {
+    await transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-            return console.log(error);
+            console.log(error);
         }
-        console.log('Email sent: ' + info.response);
+        console.log('Email sent: ' + info);
     });
 }
 
@@ -40,10 +52,11 @@ function sendMail(to) {
 // });
 
 module.exports = {
-    scheduleEmail: function (date, recipient) {
-        scheduleJob(date, () => {
-            sendMail(recipient);
+    scheduleEmail: async (date, recipient) =>  {
+        scheduleJob(date, async () => {
+            await sendMail(recipient);
             console.log(`Email scheduled to ${recipient} at ${date}`);
         });
     },
+    sendMail,
 };
