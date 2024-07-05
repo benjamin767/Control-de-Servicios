@@ -11,35 +11,37 @@ const oAuth2Client = new google.auth.OAuth2(
     REDIRECT_URI
 );
 
-const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
-    auth: {
-        type: 'OAuth2',
-        user: EMAIL_PASS,
-        pass: EMAIL_USER,
-        clientId: CLIENT_ID,
-        clientSecret: CLIENT_SECRET,
-        refreshToken: REFRESH_TOKEN,
-        accessToken: ACESS_TOKEN
-    }
-});
-
-const mailOptions = {
-    from: EMAIL_USER,
-    to: '',
-    subject: 'Scheduled Email',
-    text: 'This is an automatically scheduled email.'
-};
+oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
 
 async function sendMail(to) {
-    mailOptions.to = to;
+    // const accessToken = await oAuth2Client.getAccessToken();
+    const transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+            type: 'OAuth2',
+            user: EMAIL_PASS,
+            pass: EMAIL_USER,
+            clientId: CLIENT_ID,
+            clientSecret: CLIENT_SECRET,
+            refreshToken: REFRESH_TOKEN,
+            accessToken: ACESS_TOKEN
+        }
+    });
+    
+    const mailOptions = {
+        from: EMAIL_USER,
+        to: `${to}`,
+        subject: 'Scheduled Email',
+        text: 'This is an automatically scheduled email.'
+    };
+    
     await transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
             console.log(error);
-        }
-        console.log('Email sent: ' + info);
+        } else console.log('Email sent: ' + info);
+        
     });
 }
 
