@@ -5,10 +5,12 @@ const { scheduleEmail, sendMail } = require("../../../nodemail");
 
 module.exports = {
     createService: async ( rubro, empresa, descripcion, periodo, metodo_de_pago, medio_de_pago, vencimiento, moneda, importe ) => {
-        const date = new Date(vencimiento);
+        vencimiento = vencimiento.split("-").map(e => Number(e));
+        const date = new Date(vencimiento[0], vencimiento[1]-1, vencimiento[2], 16, 12, 0);
         //if( !isValid(date) ) throw new Error("La fecha es incorrecta");
-        await scheduleEmail(date, "it@frecom.com.ar, administracion@frecom.com.ar");
-        await sendMail("it@frecom.com.ar, administracion@frecom.com.ar");
+        scheduleEmail(date, "it@frecom.com.ar", rubro, empresa, descripcion, vencimiento, importe, moneda );
+        ///await sendMail("it@frecom.com.ar");
+        console.log(date)
         return await Service.create({
             rubro, 
             empresa, 
@@ -18,7 +20,7 @@ module.exports = {
             medio_de_pago, 
             vencimiento, 
             moneda, 
-            importe 
+            importe
         });
     },
     getServices: async (vencimiento, rubro, empresa) => {

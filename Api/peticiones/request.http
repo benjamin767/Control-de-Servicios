@@ -8,7 +8,7 @@ Content-Type: application/json
     "periodo": "Mensual",
     "metodo_de_pago": "Automatico",
     "medio_de_pago": "Debito Automatico en Cuenta",
-    "vencimiento": "2024-07-05",
+    "vencimiento": "2024-07-10",
     "moneda": "Pesos",
     "importe": "558.585",
     "estado": "Pagado"

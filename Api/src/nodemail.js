@@ -13,28 +13,26 @@ const oAuth2Client = new google.auth.OAuth2(
 
 oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
 
-async function sendMail(to) {
+async function sendMail(to, rubro, empresa, descripcion, vencimiento, importe, moneda) {
     // const accessToken = await oAuth2Client.getAccessToken();
     const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 465,
         secure: true,
         auth: {
-            type: 'OAuth2',
-            user: EMAIL_PASS,
-            pass: EMAIL_USER,
-            clientId: CLIENT_ID,
-            clientSecret: CLIENT_SECRET,
-            refreshToken: REFRESH_TOKEN,
-            accessToken: ACESS_TOKEN
+            user: EMAIL_USER,
+            pass: EMAIL_PASS
         }
     });
     
     const mailOptions = {
         from: EMAIL_USER,
         to: `${to}`,
-        subject: 'Scheduled Email',
-        text: 'This is an automatically scheduled email.'
+        subject: `Vence factura de ${rubro} - ${empresa}`,
+        html: `<p>
+            Este mail fue programado para informar y recordar que la factura de los servicios de ${rubro}/${descripcion} de la empresa ${empresa}, 
+            vence con un total a pagar de $${importe} ${moneda} en la fecha: ${vencimiento}.
+        </p>`
     };
     
     await transporter.sendMail(mailOptions, (error, info) => {
@@ -54,9 +52,9 @@ async function sendMail(to) {
 // });
 
 module.exports = {
-    scheduleEmail: async (date, recipient) =>  {
+    scheduleEmail: (date, recipient, rubro, empresa, descripcion, vencimiento, importe, moneda) =>  {
         scheduleJob(date, async () => {
-            await sendMail(recipient);
+            sendMail(recipient, rubro, empresa, descripcion, vencimiento, importe, moneda);
             console.log(`Email scheduled to ${recipient} at ${date}`);
         });
     },
