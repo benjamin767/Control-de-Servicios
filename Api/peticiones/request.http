@@ -1,17 +1,28 @@
-POST http://localhost:5899/services
-Content-Type: application/json
+# POST http://localhost:5899/services
+# Content-Type: application/json
 
-{
-    "rubro": "PRUEBA",
-    "empresa": "Personal",
-    "descripcion": "Celular",
-    "periodo": "Mensual",
-    "metodo_de_pago": "Automatico",
-    "medio_de_pago": "Debito Automatico en Cuenta",
-    "vencimiento": "2024-07-10",
-    "moneda": "Pesos",
-    "importe": "558.585",
-    "estado": "Pagado"
-}
+# {
+#     "rubro": "PRUEBA",
+#     "empresa": "Personal",
+#     "descripcion": "Celular",
+#     "periodo": "Mensual",
+#     "metodo_de_pago": "Automatico",
+#     "medio_de_pago": "Debito Automatico en Cuenta",
+#     "vencimiento": "2024-07-10",
+#     "moneda": "Pesos",
+#     "importe": "558.585",
+#     "estado": "Pagado"
+# }
 
 # GET http://localhost:5899/services
+
+# POST http://localhost:5899/rubro 
+# Content-Type: application/json
+
+# {
+#     "nombre": "PRUEBA"
+# }
+
+# GET http://localhost:5899/rubro 
+
+DELETE  http://localhost:5899/rubro/PRUEBA 
