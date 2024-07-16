@@ -4,6 +4,7 @@ const { Router } = require("express");
 // Ejemplo: const authRouter = require('./auth.js');
 const authServices = require("./services");
 const authRubro = require("./rubro");
+const authEmpresa = require("./empresa");
 
 const router = Router();
 
@@ -12,5 +13,6 @@ const router = Router();
 // router.use('/trademarks', trademarkMiddleware);
 router.use("/services", authServices);
 router.use("/rubro", authRubro);
+router.use("/empresa", authEmpresa);
 
 module.exports = router;

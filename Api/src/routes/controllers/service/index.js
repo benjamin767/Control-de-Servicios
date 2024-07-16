@@ -1,18 +1,15 @@
-const { Service } = require("../../../db");
+const { Service, Rubro } = require("../../../db");
 const { Op } = require("sequelize");
 const { parseISO, isValid, format } = require('date-fns');
 const { scheduleEmail, sendMail } = require("../../../nodemail");
 
 module.exports = {
-    createService: async ( rubro, empresa, descripcion, periodo, metodo_de_pago, medio_de_pago, vencimiento, moneda, importe ) => {
+    createService: async ( rubro, empresa, descripcion, periodo, metodo_de_pago, medio_de_pago, vencimiento, moneda, importe, estado ) => {
         vencimiento = vencimiento.split("-").map(e => Number(e));
         const date = new Date(vencimiento[0], vencimiento[1]-1, vencimiento[2], 16, 12, 0);
         //if( !isValid(date) ) throw new Error("La fecha es incorrecta");
-        scheduleEmail(date, "it@frecom.com.ar", rubro, empresa, descripcion, vencimiento, importe, moneda );
-        ///await sendMail("it@frecom.com.ar");
-        console.log(date)
-        return await Service.create({
-            rubro, 
+        console.log(date);
+        const service = await Service.create({
             empresa, 
             descripcion, 
             periodo, 
@@ -20,8 +17,18 @@ module.exports = {
             medio_de_pago, 
             vencimiento, 
             moneda, 
-            importe
+            importe,
+            estado
         });
+        
+        scheduleEmail(date, "it@frecom.com.ar", rubro, empresa, descripcion, vencimiento, importe, moneda );
+        ///await sendMail("it@frecom.com.ar");
+        const foundRubro = await Rubro.findOrCreate({
+            where : { nombre: rubro }
+        });
+        await service.setRubro(rubro);
+
+        return service;
     },
     getServices: async (vencimiento, rubro, empresa) => {
         if(!vencimiento && !rubro && !empresa) return await Service.findAll();
@@ -29,7 +36,15 @@ module.exports = {
         return await Service.findAll({
             where: {
                 [Op.or]: [{ vencimiento }, { rubro }, { empresa }] 
-            }
+            },
+            include: [
+                {
+                    model: Rubro,
+                    as: "rubros",
+                    attributes:["nombre"],
+                    required: false
+                }
+            ]
         });
     },
     setServices: async ( id, rubro, empresa, descripcion, periodo, metodo_de_pago, medio_de_pago, vencimiento, moneda, importe, estado ) => {

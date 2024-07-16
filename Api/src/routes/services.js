@@ -12,13 +12,15 @@ router.post("/", async (req, res) => {
         medio_de_pago,
         vencimiento,
         moneda,
-        importe
+        importe,
+        estado
     } = req.body;
 
     try {
-        const service = await createService(rubro, empresa, descripcion, periodo, metodo_de_pago, medio_de_pago, vencimiento, moneda, importe);
+        const service = await createService(rubro, empresa, descripcion, periodo, metodo_de_pago, medio_de_pago, vencimiento, moneda, importe, estado);
         res.status(201).json(service);
     } catch(error) {
+        console.log(error)
         res.status(404).json({ msg: error.message });
     }
 });

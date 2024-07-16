@@ -2,7 +2,7 @@
 # Content-Type: application/json
 
 # {
-#     "rubro": "PRUEBA",
+#     "rubro": "Teleonia",
 #     "empresa": "Personal",
 #     "descripcion": "Celular",
 #     "periodo": "Mensual",
@@ -25,4 +25,11 @@
 
 # GET http://localhost:5899/rubro 
 
-DELETE  http://localhost:5899/rubro/PRUEBA 
+# DELETE  http://localhost:5899/rubro/PRUEBA 
+
+post http://localhost:5899/empresa
+Content-Type: application/json
+
+{
+    "nombre": "PRUEBA"
+}

@@ -4,6 +4,7 @@ module.exports = (sequelize) => {
     sequelize.define('rubro', {
         nombre: {
             type: DataTypes.STRING,
+            primaryKey: true,
             allowNull: false,
             unique: {    
                 args: true,    
