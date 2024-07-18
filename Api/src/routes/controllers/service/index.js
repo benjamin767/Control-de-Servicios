@@ -1,5 +1,5 @@
-const { Service, Rubro } = require("../../../db");
-const { Op } = require("sequelize");
+const { Service, Rubro, Empresa } = require("../../../db");
+const { Op, EmptyResultError } = require("sequelize");
 const { parseISO, isValid, format } = require('date-fns');
 const { scheduleEmail, sendMail } = require("../../../nodemail");
 
@@ -9,8 +9,7 @@ module.exports = {
         const date = new Date(vencimiento[0], vencimiento[1]-1, vencimiento[2], 16, 12, 0);
         //if( !isValid(date) ) throw new Error("La fecha es incorrecta");
         console.log(date);
-        const service = await Service.create({
-            empresa, 
+        const service = await Service.create({ 
             descripcion, 
             periodo, 
             metodo_de_pago, 
@@ -23,24 +22,32 @@ module.exports = {
         
         scheduleEmail(date, "it@frecom.com.ar", rubro, empresa, descripcion, vencimiento, importe, moneda );
         ///await sendMail("it@frecom.com.ar");
-        const foundRubro = await Rubro.findOrCreate({
-            where : { nombre: rubro }
-        });
+        // const foundRubro = await Rubro.findOrCreate({
+        //     where : { nombre: rubro }
+        // });
+        // const foundEmpresa = await Empresa.findOrCreate(empresa)
         await service.setRubro(rubro);
+        await service.setEmpresa(empresa);
 
         return service;
     },
-    getServices: async (vencimiento, rubro, empresa) => {
-        if(!vencimiento && !rubro && !empresa) return await Service.findAll();
+    getServices: async (vencimiento) => {
+        if(!vencimiento) return await Service.findAll();
         const date = parseISO(vencimiento);
         return await Service.findAll({
             where: {
-                [Op.or]: [{ vencimiento }, { rubro }, { empresa }] 
+                vencimiento
             },
             include: [
                 {
                     model: Rubro,
-                    as: "rubros",
+                    as: "rubro",
+                    attributes:["nombre"],
+                    required: false
+                },
+                {
+                    model: Empresa,
+                    as: "empresa",
                     attributes:["nombre"],
                     required: false
                 }
@@ -56,7 +63,8 @@ module.exports = {
             descripcion, 
             periodo, 
             metodo_de_pago, 
-            medio_de_pago, vencimiento, 
+            medio_de_pago,
+            vencimiento, 
             moneda, 
             importe, 
             estado

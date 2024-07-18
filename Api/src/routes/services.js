@@ -20,18 +20,30 @@ router.post("/", async (req, res) => {
         const service = await createService(rubro, empresa, descripcion, periodo, metodo_de_pago, medio_de_pago, vencimiento, moneda, importe, estado);
         res.status(201).json(service);
     } catch(error) {
-        console.log(error)
+        console.log(error);
         res.status(404).json({ msg: error.message });
     }
 });
 
 router.get("/", async (req, res) => {
-    const { vencimiento, rubro, empresa, } = req.body;
+    const { vencimiento, rubro, empresa } = req.query;
+    console.log(vencimiento)
     try {
         const services = await getServices(vencimiento, rubro, empresa);
         res.status(200).json({ services })
     } catch(error) {
+        console.log(error)
         res.status(404).json({ msg: error.message });
+    }
+});
+
+router.get("/:inicio/:final", async (req, res) => {
+    const { inicio, final } = req.body;
+
+    try {
+
+    }catch(error) {
+
     }
 });
 

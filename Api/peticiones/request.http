@@ -2,7 +2,7 @@
 # Content-Type: application/json
 
 # {
-#     "rubro": "Teleonia",
+#     "rubro": "Telefonia",
 #     "empresa": "Personal",
 #     "descripcion": "Celular",
 #     "periodo": "Mensual",
@@ -20,16 +20,16 @@
 # Content-Type: application/json
 
 # {
-#     "nombre": "PRUEBA"
+#     "nombre": "Telefonia"
 # }
 
 # GET http://localhost:5899/rubro 
 
-# DELETE  http://localhost:5899/rubro/PRUEBA 
+# DELETE  http://localhost:5899/rubro/Teleonia 
 
-post http://localhost:5899/empresa
-Content-Type: application/json
+# post http://localhost:5899/empresa
+# Content-Type: application/json
 
-{
-    "nombre": "PRUEBA"
-}
+# {
+#     "nombre": "Personal"
+# }
