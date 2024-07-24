@@ -6,7 +6,7 @@ const { scheduleEmail, sendMail } = require("../../../nodemail");
 module.exports = {
     createService: async ( rubro, empresa, descripcion, periodo, metodo_de_pago, medio_de_pago, vencimiento, moneda, importe, estado ) => {
         vencimiento = vencimiento.split("-").map(e => Number(e));
-        const date = new Date(vencimiento[0], vencimiento[1]-1, vencimiento[2], 16, 12, 0);
+        const date = new Date(vencimiento[0], vencimiento[1]-1, vencimiento[2], 9, 30, 0);
         //if( !isValid(date) ) throw new Error("La fecha es incorrecta");
         console.log(date);
         const service = await Service.create({ 

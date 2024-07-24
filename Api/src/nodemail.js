@@ -2,16 +2,9 @@ const nodemailer = require('nodemailer');
 const cron = require('node-cron');
 const { scheduleJob } = require('node-schedule');
 require('dotenv').config();
-const { google } = require('googleapis');
-const { REDIRECT_URI, ACESS_TOKEN, REFRESH_TOKEN, CLIENT_ID, CLIENT_SECRET, EMAIL_USER, EMAIL_PASS } = process.env;
+const { EMAIL_USER, EMAIL_PASS } = process.env;
 
-const oAuth2Client = new google.auth.OAuth2(
-    CLIENT_ID,
-    CLIENT_SECRET,
-    REDIRECT_URI
-);
 
-oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
 
 async function sendMail(to, rubro, empresa, descripcion, vencimiento, importe, moneda) {
     // const accessToken = await oAuth2Client.getAccessToken();

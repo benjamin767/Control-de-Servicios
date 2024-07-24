@@ -33,3 +33,5 @@
 # {
 #     "nombre": "Personal"
 # }
+
+GET http://localhost:5899/google/schedule_event

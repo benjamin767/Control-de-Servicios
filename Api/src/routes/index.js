@@ -5,6 +5,7 @@ const { Router } = require("express");
 const authServices = require("./services");
 const authRubro = require("./rubro");
 const authEmpresa = require("./empresa");
+const authCalendar = require("./calendar");
 
 const router = Router();
 
@@ -14,5 +15,6 @@ const router = Router();
 router.use("/services", authServices);
 router.use("/rubro", authRubro);
 router.use("/empresa", authEmpresa);
+router.use("/google", authCalendar);
 
 module.exports = router;
