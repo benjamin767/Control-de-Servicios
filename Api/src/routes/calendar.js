@@ -39,14 +39,12 @@ router.get("/redirect", async (req, res) => {
 
 router.get("/schedule_event", async (req, res) => {
     let { fecha, empresa, rubro, descripcion } = req.query;
-    fecha = fecha.split("-").map(e => Number(e));
-    fecha = new Date(fecha[0], fecha[1]-1, fecha[2], 9, 30, 0);
     try {
         await calendar.events.insert({
             calendarId: "primary",
             auth: oauth2Client,
             requestBody: {
-                summary: `Vencimiento de la Factura de la ${empresa} - ${rubro} - ${descripcion}`,
+                summary: `Vencimiento de la Factura de ${empresa} - ${rubro} - ${descripcion}`,
                 description: `Averiguar si la factura ${empresa} - ${rubro} esta paga`,
                 start: {
                     dateTime: dayjs(fecha).toISOString(),
@@ -58,17 +56,17 @@ router.get("/schedule_event", async (req, res) => {
                 },
                 attendees: [
                     {
-                        email: "administracion@frecom.com.ar",
+                        email: "rmazza@frecom.com.ar",
                     },
                     {
-                        email: "it@frecom.com.ar"
+                        email: "ebarros@frecom.com.ar"
                     },
                 ]
             }
         });
         res.status(200).json({ msg: "Perfecto, Recordatorio de vencimiento de la factura creado!"})
     } catch(error) {
-        res.status(400).send(error.message)
+        res.status(400).send({msg: error.message });
     }
 }); 
 

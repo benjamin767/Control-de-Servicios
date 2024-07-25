@@ -2,11 +2,13 @@ const { Service, Rubro, Empresa } = require("../../../db");
 const { Op, EmptyResultError } = require("sequelize");
 const { parseISO, isValid, format } = require('date-fns');
 const { scheduleEmail, sendMail } = require("../../../nodemail");
+const axios = require("axios");
 
 module.exports = {
     createService: async ( rubro, empresa, descripcion, periodo, metodo_de_pago, medio_de_pago, vencimiento, moneda, importe, estado ) => {
         vencimiento = vencimiento.split("-").map(e => Number(e));
         const date = new Date(vencimiento[0], vencimiento[1]-1, vencimiento[2], 9, 30, 0);
+        const mail = new Date(vencimiento[0], vencimiento[1]-1, vencimiento[2]-3, 9, 30, 0);
         //if( !isValid(date) ) throw new Error("La fecha es incorrecta");
         console.log(date);
         const service = await Service.create({ 
@@ -20,7 +22,7 @@ module.exports = {
             estado
         });
         
-        scheduleEmail(date, "it@frecom.com.ar", rubro, empresa, descripcion, vencimiento, importe, moneda );
+        scheduleEmail(mail, "it@frecom.com.ar", rubro, empresa, descripcion, vencimiento, importe, moneda );
         ///await sendMail("it@frecom.com.ar");
         // const foundRubro = await Rubro.findOrCreate({
         //     where : { nombre: rubro }
@@ -28,8 +30,12 @@ module.exports = {
         // const foundEmpresa = await Empresa.findOrCreate(empresa)
         await service.setRubro(rubro);
         await service.setEmpresa(empresa);
-
-        return service;
+        const calendar = await axios.get(`http://localhost:5899/google/schedule_event?fecha=${date}&empresa=${empresa}&rubro=${rubro}&descripcion=${descripcion}`)
+            .then(res => res.data);
+        return { 
+            service,
+            msg: calendar.msg
+        };
     },
     getServices: async (vencimiento) => {
         if(!vencimiento) return await Service.findAll();
