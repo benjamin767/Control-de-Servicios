@@ -16,7 +16,7 @@ module.exports = {
             periodo, 
             metodo_de_pago, 
             medio_de_pago, 
-            vencimiento, 
+            vencimiento: date, 
             moneda, 
             importe,
             estado

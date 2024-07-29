@@ -10,12 +10,16 @@
         <h1 class="m-2">Cargar una Boleta nueva</h1>
         <form class="p-4" novalidate>
             <div class="input-group m-2">
-                <input type="text" id="rubro" class="form-control"
-                    placeholder="Rubro" autofocus/>
+                <label class="input-group-text" for="inputGroupSelect01">Rubros</label>
+                <select class="form-select" id="rubro">
+                    <option selected>Elegir una opcion</option>
+                </select>
             </div>
             <div class="input-group m-2">
-                <input type="text" id="empresa" class="form-control"
-                    placeholder="Empresa"/>
+                <label class="input-group-text" for="inputGroupSelect01">Empresas</label>
+                <select class="form-select" id="empresa">
+                    <option selected>Elegir una opcion</option>
+                </select>
             </div>
             <div class="input-group m-2">
                 <input type="text" id="descripcion" class="form-control"
@@ -43,13 +47,25 @@
                 <label class="input-group-text" for="inputGroupSelect01">Moneda</label>
                 <select class="form-select" id="moneda">
                     <option selected>Elegir una opcion</option>
-                    <option value="Automatico">Dolares</option>
-                    <option value="Manual">Pesos</option>
+                    <option value="Dolares">Dolares</option>
+                    <option value="Pesos">Pesos</option>
+                </select>
+            </div>
+            <div class="input-group m-1">
+                <label class="input-group-text" for="inputGroupSelect01">Perido de cuotas</label>
+                <select class="form-select" id="periodo">
+                    <option selected>Elegir una opcion</option>
+                    <option value="Mensual">Mensual</option>
+                    <option value="Anual">Anual</option>
                 </select>
             </div>
             <div class="input-group m-2">
                 <input type="text" id="importe" class="form-control"
                     placeholder="Importe $$$"/>
+            </div>
+            <div class="input-group m-2">
+                <input type="date" id="vencimiento" class="form-control"
+                    placeholder="Fecha de vencimiento"/>
             </div>
             <div class="input-group m-1">
                 <label class="input-group-text" for="inputGroupSelect01">Estado</label>

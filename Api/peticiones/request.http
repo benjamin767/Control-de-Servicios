@@ -1,18 +1,18 @@
-POST http://localhost:5899/services
-Content-Type: application/json
+# POST http://localhost:5899/services
+# Content-Type: application/json
 
-{
-    "rubro": "Telefonia",
-    "empresa": "Personal",
-    "descripcion": "Celular",
-    "periodo": "Mensual",
-    "metodo_de_pago": "Automatico",
-    "medio_de_pago": "Debito Automatico en Cuenta",
-    "vencimiento": "2024-07-26",
-    "moneda": "Pesos",
-    "importe": "558.585",
-    "estado": "Pagado"
-}
+# {
+#     "rubro": "Telefonia",
+#     "empresa": "Personal",
+#     "descripcion": "Celular",
+#     "periodo": "Mensual",
+#     "metodo_de_pago": "Automatico",
+#     "medio_de_pago": "Debito Automatico en Cuenta",
+#     "vencimiento": "2024-07-26",
+#     "moneda": "Pesos",
+#     "importe": "558.585",
+#     "estado": "Pagado"
+# }
 
 # GET http://localhost:5899/services
 
