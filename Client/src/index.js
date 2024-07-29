@@ -49,6 +49,20 @@ const templateMenu = [
                 }
             },
             {
+                label: "Agregar una nueva Empresa",
+                accelerator: "Ctrl+E",
+                click() {
+                    createEmpresa()
+                }
+            },
+            {
+                label: "Agregar un nuevo Rubro",
+                accelerator: "Ctrl+R",
+                click() {
+                    createRubro()
+                }
+            },
+            {
                 label: "Salir",
                 accelerator: process.platform === "darwin" ? "command+Q" : "Ctrl+Q",
                 click(){
@@ -63,6 +77,24 @@ function createNewTicketWindow() {
     // newTicketWindow.setMenu(null);
     mainWindow.loadURL(url.format({
         pathname: path.join(__dirname, "views/newTicket.html"),
+        protocol: "file",
+        slashes: true,
+    }));
+}
+
+function createEmpresa() {
+    // newTicketWindow.setMenu(null);
+    mainWindow.loadURL(url.format({
+        pathname: path.join(__dirname, "views/newEmpresa.html"),
+        protocol: "file",
+        slashes: true,
+    }));
+}
+
+function createRubro() {
+    // newTicketWindow.setMenu(null);
+    mainWindow.loadURL(url.format({
+        pathname: path.join(__dirname, "views/newRubro.html"),
         protocol: "file",
         slashes: true,
     }));
