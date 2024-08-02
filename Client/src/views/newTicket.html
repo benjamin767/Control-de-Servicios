@@ -10,6 +10,10 @@
         <h1 class="m-2">Cargar una Boleta nueva</h1>
         <form class="p-4" novalidate>
             <div class="input-group m-2">
+                <input type="text" id="serial_number" class="form-control"
+                    placeholder="Numero de boleta"/>
+            </div>
+            <div class="input-group m-2">
                 <label class="input-group-text" for="inputGroupSelect01">Rubros</label>
                 <select class="form-select" id="rubro">
                     <option selected>Elegir una opcion</option>
@@ -52,7 +56,7 @@
                 </select>
             </div>
             <div class="input-group m-1">
-                <label class="input-group-text" for="inputGroupSelect01">Perido de cuotas</label>
+                <label class="input-group-text" for="inputGroupSelect01">Periodo de cuotas</label>
                 <select class="form-select" id="periodo">
                     <option selected>Elegir una opcion</option>
                     <option value="Mensual">Mensual</option>
@@ -64,6 +68,7 @@
                     placeholder="Importe $$$"/>
             </div>
             <div class="input-group m-2">
+                <label class="input-group-text" for="inputGroupSelect01">Vencimiento</label>
                 <input type="date" id="vencimiento" class="form-control"
                     placeholder="Fecha de vencimiento"/>
             </div>

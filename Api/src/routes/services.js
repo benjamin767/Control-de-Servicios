@@ -4,6 +4,7 @@ const { createService, getServices, setServices } = require("./controllers/servi
 
 router.post("/", async (req, res) => {
     const { 
+        serial_number,
         rubro, 
         empresa, 
         descripcion, 
@@ -17,7 +18,7 @@ router.post("/", async (req, res) => {
     } = req.body;
 
     try {
-        const service = await createService(rubro, empresa, descripcion, periodo, metodo_de_pago, medio_de_pago, vencimiento, moneda, importe, estado);
+        const service = await createService(serial_number, rubro, empresa, descripcion, periodo, metodo_de_pago, medio_de_pago, vencimiento, moneda, importe, estado);
         res.status(201).json(service);
     } catch(error) {
         console.log(error);

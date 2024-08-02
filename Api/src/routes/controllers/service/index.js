@@ -5,13 +5,14 @@ const { scheduleEmail, sendMail } = require("../../../nodemail");
 const axios = require("axios");
 
 module.exports = {
-    createService: async ( rubro, empresa, descripcion, periodo, metodo_de_pago, medio_de_pago, vencimiento, moneda, importe, estado ) => {
+    createService: async (serial_number, rubro, empresa, descripcion, periodo, metodo_de_pago, medio_de_pago, vencimiento, moneda, importe, estado ) => {
         vencimiento = vencimiento.split("-").map(e => Number(e));
         const date = new Date(vencimiento[0], vencimiento[1]-1, vencimiento[2], 9, 30, 0);
-        const mail = new Date(vencimiento[0], vencimiento[1]-1, vencimiento[2]-3, 9, 30, 0);
+        
         //if( !isValid(date) ) throw new Error("La fecha es incorrecta");
         console.log(date);
-        const service = await Service.create({ 
+        const service = await Service.create({
+            serial_number, 
             descripcion, 
             periodo, 
             metodo_de_pago, 
@@ -22,7 +23,7 @@ module.exports = {
             estado
         });
         
-        scheduleEmail(mail, "it@frecom.com.ar", rubro, empresa, descripcion, vencimiento, importe, moneda );
+        scheduleEmail(date.setDate(date.getDate() - 1), "it@frecom.com.ar", rubro, empresa, descripcion, vencimiento, importe, moneda );
         ///await sendMail("it@frecom.com.ar");
         // const foundRubro = await Rubro.findOrCreate({
         //     where : { nombre: rubro }

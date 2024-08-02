@@ -9,6 +9,7 @@ const importe = document.querySelector("#importe");
 const estado = document.querySelector("#estado");
 const vencimiento = document.querySelector("#vencimiento");
 const periodo = document.querySelector("#periodo");
+const serial_number = document.querySelector("#serial_number");
 
 document.addEventListener('DOMContentLoaded', async () => {
    try {
@@ -21,7 +22,6 @@ document.addEventListener('DOMContentLoaded', async () => {
          let option =  document.createElement('option');
          option.value = empresa.nombre;
          option.textContent = empresa.nombre;
-         console.log(option);
          return option;
       });
 
@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', async () => {
          let option =  document.createElement('option');
          option.value = rubro.nombre;
          option.textContent = rubro.nombre;
-         console.log(option);
          return option;
       });
       
@@ -50,6 +49,7 @@ button.addEventListener("click", e => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ 
+         serial_number: serial_number.value,
          rubro: rubro.value,
          empresa: empresa.value,
          descripcion: descripcion.value,
@@ -62,5 +62,12 @@ button.addEventListener("click", e => {
          estado: estado.value
       }),
    }).then(() => console.log("Estamos bien, estamos bien"))
-   .catch(() => console.log(error.message));
+   .catch((error) => {
+      dialog.showErrorBox({
+         title: 'Alerta',
+         message: error.message,
+         buttons: ["OK"]
+      });
+      console.log(error)
+   });
 });

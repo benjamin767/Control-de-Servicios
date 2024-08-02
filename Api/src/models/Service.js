@@ -2,6 +2,15 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
     sequelize.define('service', {
+        serial_number: {
+            type: DataTypes.STRING,
+            primaryKey: true,
+            allowNull: false,
+            unique: {    
+                args: true,    
+                msg: 'Esta Boleta ya esta creada queridito',
+            },
+        },
         descripcion: {
             type: DataTypes.STRING,
         },
