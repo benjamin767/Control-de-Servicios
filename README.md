@@ -44,4 +44,5 @@ Los datos que la APP te pide para cargar una boleta son los siguientes:
   - Las formas de pago
   - Importe
   - Estado
+
 Una vez rellenado el formulario con los datos correspondientes se debe dar a guardar y asi creamos el recordatorio y programamos un mail para que nos llegue un dia antes del vencimiento.
