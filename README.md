@@ -9,6 +9,7 @@ Back-End:
   - Express.JS
   - PostgreSQL con Sequelize
   - Googleapis
+
 Front-End:
   - Electron.JS
   - Bootstrap 5
