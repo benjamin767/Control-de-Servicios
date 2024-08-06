@@ -5,6 +5,7 @@ Si bien es un aplicacion de escritorio no realice los pasos para crear el instal
 asi que esta aplicacion funciona solo si lo usuamos en su formato de desarrollo que lo voy a explicar mas abajo.
 
 La aplicacion esta compuesta principalmente por las siguientes tecnologias: 
+
 Back-End: 
   - Express.JS
   - PostgreSQL con Sequelize
