@@ -10,6 +10,7 @@ const estado = document.querySelector("#estado");
 const vencimiento = document.querySelector("#vencimiento");
 const periodo = document.querySelector("#periodo");
 const serial_number = document.querySelector("#serial_number");
+const modalText = document.querySelector(".modal-body");
 
 document.addEventListener('DOMContentLoaded', async () => {
    try {
@@ -61,13 +62,22 @@ button.addEventListener("click", e => {
          importe: importe.value,
          estado: estado.value
       }),
-   }).then(() => console.log("Estamos bien, estamos bien"))
+   }).then((res) =>{ 
+      if(res.status === 404) modalText.textContent = "Ups, algo salio mal :|";
+      else modalText.textContent = "Recordatorio creado! :)";
+   })
    .catch((error) => {
-      dialog.showErrorBox({
-         title: 'Alerta',
-         message: error.message,
-         buttons: ["OK"]
-      });
+      modalText.textContent = error.message;
       console.log(error)
    });
+});
+
+document.getElementById("advertenciaModal").addEventListener("hidden.bs.modal", function() {
+   // Vaciar los campos del formulario
+   const formulario = document.querySelector("form");
+   const campos = formulario.querySelectorAll("input, select");
+   campos.forEach(function(campo) {
+      campo.value = '';
+   });
+   modalText.textContent = "Cargando solicitud...";
 });

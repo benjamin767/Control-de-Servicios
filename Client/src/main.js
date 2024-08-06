@@ -1,30 +1,23 @@
 const { app, BrowserWindow, Menu } = require("electron");
 const url = require("url");
 const path = require("path");
-const { electron } = require("process"); 
-
-if(process.env.NODE_ENV != "production") {
-    require("electron-reload")(__dirname, {
-        electron: path.join(__dirname, "../node_modules", ".bin", "electron")
-    });
-}
 
 let mainWindow
 
 app.on("ready", () => {
     mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 900,
+        height: 800,
         title: "Control de Servicios",
         webPreferences: {
             nodeIntegration: true
         }
     });
-    mainWindow.loadURL(`file://${__dirname}/views/index.html`);
+    console.log(__dirname);
+    mainWindow.loadURL(`${__dirname}/views/newTicket.html`);
 
     const mainMenu = Menu.buildFromTemplate(templateMenu);
     Menu.setApplicationMenu(mainMenu);
-    mainWindow.webContents.openDevTools();
     mainWindow.on("closed", () => {
         app.quit();
     });

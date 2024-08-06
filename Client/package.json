@@ -5,10 +5,7 @@
   "description": "",
   "main": "src/main.js",
   "scripts": {
-    "start": "concurrently \"BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\""
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "start": "electron ."
   },
   "keywords": [],
   "author": "",
@@ -17,15 +14,11 @@
     "@types/axios": "^0.14.0",
     "bootstrap": "^5.3.3",
     "concurrently": "^8.2.2",
-    "electron-builder": "^24.13.3",
-    "electron-is-dev": "^3.0.1",
     "electron-reload": "^2.0.0-alpha.1",
-    "electron-squirrel-startup": "^1.0.1",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "wait-on": "^7.2.0"
+    "electron-squirrel-startup": "^1.0.1"
   },
   "devDependencies": {
+    "electron-builder": "^24.13.3",
     "@electron/fuses": "^1.8.0",
     "electron": "^31.3.1",
     "electron-webpack": "^2.8.2"
